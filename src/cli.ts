@@ -45,3 +45,7 @@ async function main() {
 }
 
 main();
+
+
+
+// all work of the AI is done here
