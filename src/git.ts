@@ -105,3 +105,18 @@ export async function push(workspacePath: string): Promise<string> {
     throw new Error(messageText);
   }
 }
+
+/**
+ * Stage a single file
+ */
+export async function stageFile(
+  workspacePath: string,
+  filePath: string
+): Promise<void> {
+  try {
+    await execAsync(`git add "${filePath}"`, { cwd: workspacePath });
+  } catch (err: any) {
+    console.error(`Failed to stage file ${filePath}:`, err);
+    throw new Error(`Failed to stage file: ${err.message}`);
+  }
+}

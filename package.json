@@ -1,18 +1,57 @@
 {
-  "name": "ai-committer-cli",
-  "version": "1.0.0",
-  "description": "A CLI tool to generate AI commit messages.",
-  "main": "out/cli.js",
-  "bin": {
-    "ai-commit": "out/cli.js"
+  "name": "ai-committer",
+  "displayName": "AI Committer",
+  "version": "2.0.0",
+  "publisher": "Rishav07-05",
+  "description": "An AI-powered VS Code extension to generate commit messages and streamline your git workflow.",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "activationEvents": [
+    "onCommand:aiCommit.generate",
+    "onCommand:aiCommit.commitFile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiCommit.generate",
+        "title": "AI Commit: Generate, Commit & Push Staged Changes"
+      },
+      {
+        "command": "aiCommit.commitFile",
+        "title": "AI Commit: Commit Current File",
+        "icon": "$(file-code)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "editorHasChanges",
+          "command": "aiCommit.commitFile",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Committer",
+      "properties": {
+        "aiCommit.geminiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Google Gemini API Key for generating commit messages."
+        }
+      }
+    }
   },
   "scripts": {
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "start": "node out/cli.js",
-    "go": "npm run compile && npm start"
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
+    "@types/vscode": "^1.60.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
