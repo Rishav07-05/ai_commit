@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getStagedDiff, commitStaged, hasStagedChanges } from "./git";
+import { getStagedDiff, commitStaged, hasStagedChanges, push } from "./git";
 import { generateCommitMessage } from "./ai";
 import * as readline from "readline";
 
@@ -28,6 +28,9 @@ async function main() {
         if (answer.toLowerCase() === "y") {
           await commitStaged(workspacePath, commitMessage);
           console.log("\nChanges committed successfully!");
+          console.log("Pushing to remote...");
+          await push(workspacePath);
+          console.log("Changes pushed successfully!");
         } else if (answer.toLowerCase() === "r") {
           console.log("\nRegenerating message...");
           main(); // Re-run the main function

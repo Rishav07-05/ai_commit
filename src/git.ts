@@ -84,3 +84,24 @@ export async function commitStaged(
     throw new Error(messageText);
   }
 }
+
+/**
+ * Push commits to the remote 'origin'
+ */
+export async function push(workspacePath: string): Promise<string> {
+  try {
+    const { stdout, stderr } = await execAsync("git push origin main", {
+      cwd: workspacePath,
+    });
+
+    if (stderr) {
+      console.warn("git push stderr:", stderr);
+    }
+
+    return stdout.trim();
+  } catch (err: any) {
+    console.error("Failed to push changes:", err);
+    const messageText = err?.message || "git push failed";
+    throw new Error(messageText);
+  }
+}
