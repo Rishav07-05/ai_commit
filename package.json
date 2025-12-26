@@ -1,40 +1,17 @@
 {
-  "name": "ai-committer",
-  "displayName": "AI Committer",
-  "publisher": "your-publisher",
-  "engines": {
-    "vscode": ">=1.60.0"
+  "name": "ai-committer-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool to generate AI commit messages.",
+  "main": "out/cli.js",
+  "bin": {
+    "ai-commit": "out/cli.js"
   },
-  "activationEvents": [
-    "onCommand:aiCommit.generate"
-  ],
-  "contributes": {
-    "commands": [
-      {
-        "command": "aiCommit.generate",
-        "title": "AI: Generate Commit Message and Commit"
-      }
-    ],
-    "configuration": {
-      "title": "AI Committer",
-      "properties": {
-        "aiCommit.geminiApiKey": {
-          "type": "string",
-          "default": "",
-          "description": "Your Gemini API Key for generating commit messages."
-        }
-      }
-    }
-  },
-  "main": "./out/extension.js",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "start": "node out/cli.js"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
-    "@types/vscode": "^1.60.0",
+    "@types/node": "^16.11.7",
     "typescript": "^5.3.3"
   },
   "dependencies": {

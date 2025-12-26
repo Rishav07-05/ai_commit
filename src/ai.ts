@@ -1,5 +1,4 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import * as vscode from "vscode";
 
 /**
  * Enforces max 7 words strictly
@@ -18,13 +17,11 @@ export async function generateCommitMessage(diff: string): Promise<string> {
     throw new Error("Empty diff");
   }
 
-  const apiKey =
-    vscode.workspace.getConfiguration("aiCommit").get<string>("geminiApiKey") ||
-    process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     throw new Error(
-      "Gemini API Key not found. Please set 'AI Committer: Gemini Api Key' in your settings."
+      "GEMINI_API_KEY not found. Please set it as an environment variable."
     );
   }
 
